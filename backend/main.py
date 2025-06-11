@@ -119,7 +119,7 @@ class StudentBase(BaseModel):
         if v not in ["مجرد", "متاهل"]:
             raise ValueError("وضعیت تأهل فقط می‌تواند مجرد یا متاهل باشد.")
         return v
-
+#hi
     @field_validator("Id")
     def validate_national_id(cls, v):
         if not re.fullmatch(r"\d{10}", v):
@@ -130,13 +130,13 @@ class StudentBase(BaseModel):
             raise ValueError("کد ملی نامعتبر است.")
         return v
 
-
-class Student(SQLModel, table=True):
-    STID: str = Field(primary_key=True, index=True)
+class person(SQLModel,table=False):
     Fname: str
     Lname: str
-    ids: str
-    Borncity: str
+class Student(SQLModel,person,table=True):
+    STID: str = Field(primary_key=True, index=True)
+    ids:str
+    borncity:str
     Father: str
     BIRTH: str
     Address: str
@@ -249,10 +249,8 @@ class ProfessorBase(BaseModel):
         return v
     
 
-class Professor(SQLModel, table=True):
+class Professor(SQLModel,person,table=True):
     LID: str = Field(index=True, primary_key=True)
-    Fname: str
-    Lname: str
     Department: str
     Major: str
     Borncity: str
